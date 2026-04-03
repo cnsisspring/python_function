@@ -30,37 +30,39 @@ def print_answer_info(count, total, second):
     print(total)
     print(second)
 
-def check_guess(guess, num):
-    if guess == num:
-        print("true")
-        return True
-    else:
-        print("false")
-        if guess < num:
-            print("up")
-        else:
-            print("down")
-        return False
-
-def process_answer(count, total, second, num):
+def answer_loop(num, count, total, second):
     print_answer_info(count, total, second)
-    guess = int(input())
-    return check_guess(guess, num)
-
-def process_add(num, divisor_sum):
-    print(num)
-    user_sum = int(input())
-
-    if user_sum == divisor_sum:
-        print("true")
-        return True
-    else:
-        print("false")
-        if user_sum < divisor_sum:
-            print("up")
+    while True:
+        user = input()
+        if user == "quit":
+            return True
+        guess = int(user)
+        if guess == num:
+            print("true")
+            return True
         else:
-            print("down")
-        return False
+            print("false")
+            if guess < num:
+                print("up")
+            else:
+                print("down")
+
+def add_loop(num, divisor_sum):
+    print(num)
+    while True:
+        user = input()
+        if user == "quit":
+            return True
+        val = int(user)
+        if val == divisor_sum:
+            print("true")
+            return True
+        else:
+            print("false")
+            if val < divisor_sum:
+                print("up")
+            else:
+                print("down")
 
 def main():
     while True:
@@ -76,17 +78,17 @@ def main():
     second = get_second_largest_divisor(divisors)
 
     while True:
-        user_input = input("Add 혹은 Answer를 입력하세요 (종료: quit): ")
+        mode = input("Add 혹은 Answer를 입력하세요 (종료: quit): ")
 
-        if user_input == "quit":
+        if mode == "quit":
             break
 
-        elif user_input == "Answer":
-            if process_answer(count, total, second, num):
+        elif mode == "Answer":
+            if answer_loop(num, count, total, second):
                 break
 
-        elif user_input == "Add":
-            if process_add(num, total):
+        elif mode == "Add":
+            if add_loop(num, total):
                 break
 
         else:
